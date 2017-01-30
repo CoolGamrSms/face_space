@@ -1,3 +1,4 @@
+# WSGI setup
 def wsgi_app(environ, start_response):
     status = '200 OK'
     response_headers = [('Content-type', 'text/plain')]
@@ -8,5 +9,16 @@ def wsgi_app(environ, start_response):
 if __name__ == '__main__':
     from wsgiref.simple_server import make_server
 
-    httpd = make_server('localhost', 5555, wsgi_app)
+    httpd = make_server('0.0.0.0', 5555, wsgi_app)
     httpd.serve_forever()
+
+# Beginning of Flask Application
+from flask import Flask
+from flask import render_template
+app = Flask(__name__)
+
+@app.route('/')
+@app.route('/login/')
+def login():
+    return render_template('login.html')
+
