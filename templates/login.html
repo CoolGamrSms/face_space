@@ -23,17 +23,11 @@
 </head>
 
 <body>
-  <ul id="navigation">
-  {% for item in navigation %}
-      <li><a href="{{ item.href }}">{{ item.caption }}</a></li>
-  {% endfor %}
-  </ul>
-
-  <h1>Facespace</h1>
-  {{ a_variable }}
-
   {# Login Form #}
   <form action="action_page.php">
+    <div class="page-header">
+      <h1>Facespace <small>Your favorite insecure social media site.</small></h1>
+    </div>
     <div class="imgcontainer">
 	    <img src="{{url_for('static', filename='img/img_avatar2.png')}}" alt="Avatar" class="avatar">
     </div>
