@@ -76,7 +76,7 @@ def signUp():
             data = cursor.fetchall()
         else:
             return json.dumps({'html':'<span>Enter the required fields</span>'})
-        
+
         if len(data) is 0:
             conn.commit()
             return json.dumps({'message':'User created successfully !'})
