@@ -13,11 +13,22 @@ if __name__ == '__main__':
     httpd.serve_forever()
 
 # Beginning of Flask Application
-from flask import Flask
-from flask import render_template
-from flask import url_for
+from flask import Flask, render_template, url_for, json, request
+from flask.ext.mysql import MySQL
 import os
+
+# Flask App
 app = Flask(__name__)
+
+# mySQL Connection
+mysql = MySQL()
+ 
+# MySQL configurations
+app.config['MYSQL_DATABASE_USER'] = 'root'
+app.config['MYSQL_DATABASE_PASSWORD'] = 'facespace588'
+app.config['MYSQL_DATABASE_DB'] = 'facespacedb'
+app.config['MYSQL_DATABASE_HOST'] = 'localhost'
+mysql.init_app(app)
 
 # Cache Busting for 'static' files
 @app.context_processor
@@ -38,3 +49,42 @@ def dated_url_for(endpoint, **values):
 @app.route('/login/')
 def login():
     return render_template('login.html')
+
+@app.route('/join/')
+def join():
+    return render_template('join.html')
+
+# Sign Up Button Handler
+@app.route('/join/',methods=['POST'])
+def signUp():
+    try:
+        # read the posted values from the UI
+        _uname = request.form['new_uname']
+        _fname = request.form['new_fname']
+        _lname = request.form['new_lname']
+        _email = request.form['new_email']
+        _state = request.form['new_state']
+        _password = request.form['new_password']
+
+        if _uname and _fname and _lname and _email and _state and _password:
+            # Call MySQL
+            conn = mysql.connect()
+            cursor = conn.cursor()
+            #_hashed_password = generate_password_hash(_password)
+            _hashed_password = _password
+            cursor.callproc('sp_createUser',(_uname,_fname,_lname,_email,_state,_hashed_password))
+            data = cursor.fetchall()
+        else:
+            return json.dumps({'html':'<span>Enter the required fields</span>'})
+        
+        if len(data) is 0:
+            conn.commit()
+            return json.dumps({'message':'User created successfully !'})
+        else:
+            return json.dumps({'error':str(data[0])})
+
+    except Exception as e:
+        return json.dumps({'error':str(e)})
+    finally:
+        cursor.close() 
+        conn.close()
