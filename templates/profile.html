@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+  <title>{{ username }}'s Profile</title>
+
+  <!-- JQuery Core JavaScript -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  <!-- Custom JS -->
+  <!--<script src="{{url_for('static', filename='js/myJS.js')}}"></script>-->
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style/style.css')}}">
+</head>
+
+<body>
+  {# Login Form #}
+    <div class="page-header" style="margin:0px;">
+      <h1><a href="/">Facespace</a> <small>Your favorite insecure social media site.</small></h1>
+    </div>
+    <div class="container" style="min-height:100vh; margin:0px; padding:0px;">
+    <div class="row">
+    <div class="col-sm-4" style="border-style:solid; border-width:0px 1px 0px 0px; border-color:#f1f1f1;">
+    <div class="imgcontainer">
+        <h1>{{ fname }} {{ lname }}</h1>
+        <h3 style="color:#999; padding-bottom:20px;">{{ username }}</h3>
+
+	    <img src="{{url_for('static', filename='img/img_avatar2.png')}}" alt="Avatar" class="avatar">
+    </div>
+    </div>
+    <div class="col-sm-8">
+        <h1>Posts</h1>
+    <div class="panel panel-default">
+        <div class="panel-body">
+           I posted a status 
+           <div style="text-align:right; font-size:10pt;color:#999;">
+            Posted by <a href="#">Shane Schulte</a> on January 42nd
+           </div>
+        </div>
+        <ul class="list-group">
+            <li class="list-group-item" style="background-color:#f1f1f1; padding-left:5em;"><a href="#">Don Nguyen</a> This status is awful</li>
+        </ul>
+    </div>
+    </div>
+    </div>
+    </div>
+
+</body>
+</html>
