@@ -2,3 +2,4 @@ flask-facespace
 .pyc
 venv
 runme.sql
+extensions.py

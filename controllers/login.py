@@ -3,11 +3,11 @@ from extensions import *
 
 login = Blueprint('login', __name__, template_folder='templates')
 
-@login.route('/login', methods = ['GET'])
+@login.route('/login/', methods = ['GET'])
 def login_route():
     return render_template('login.html')
 
-@login.route('/login', methods = ['POST'])
+@login.route('/login/', methods = ['POST'])
 def login_api_route():
     errormsg = []
     data = request.form
@@ -57,7 +57,7 @@ def login_api_route():
                 tojson.append({'message': msg})
             return (jsonify(errors=tojson), 422)
 
-@login.route('/logout')
+@login.route('/logout/')
 def logout_api_route():
     if 'id' not in session:
         tojson = []
