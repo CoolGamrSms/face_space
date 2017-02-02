@@ -11,6 +11,14 @@ def post_route():
     cur.close()
     return redirect("/home") 
 
+@home.route('/make_comment_from_home', methods=['POST'])
+def comment_route():
+    if 'id' not in session: abort(404)
+    cur = db.cursor()
+    cur.execute("INSERT into tbl_comments (text, user_id, post_id) VALUES ('"+request.form['comment']+"', '"+str(session['id'])+"', '"+request.form['id']+"')")
+    cur.close()
+    return redirect("/home") 
+
 @home.route('/home/', methods = ['GET'])
 def home_route():
     options = {}

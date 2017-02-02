@@ -33,7 +33,7 @@
         </li>
         {% endfor %}
         <li class="list-group-item">
-          <form action="/make_comment" method="POST" style="border-style:none;">
+          <form action="/make_comment_from_home" method="POST" style="border-style:none;">
             <textarea class="form-control" name="comment" placeholder="Leave a comment..."></textarea>
             <input type="hidden" name="id" value="{{post.post_id}}" />
             <button type="submit" class="btn">Submit</button>

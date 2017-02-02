@@ -8,7 +8,13 @@ def comment_route():
     if 'id' not in session: abort(404)
     cur = db.cursor()
     cur.execute("INSERT into tbl_comments (text, user_id, post_id) VALUES ('"+request.form['comment']+"', '"+str(session['id'])+"', '"+request.form['id']+"')")
-    return "idk"
+    cur.execute("SELECT * FROM tbl_posts where post_id = '" + request.form['id']+"'")
+    currentProfile = cur.fetchone()
+    print("============================")
+    print(currentProfile)
+    print("============================")
+    cur.close()
+    return redirect("/profile?id="+str(currentProfile['user_id'])) 
 
 @profile.route('/profile', methods = ['GET'])
 def profile_route():
