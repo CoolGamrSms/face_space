@@ -33,6 +33,13 @@ button {
     background-color: #f44336;
 }
 
+/* Extra style for the cancel button (red) */
+.postbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #008CBA;
+}
+
 /* Center the avatar image inside this container */
 .imgcontainer {
     text-align: center;
