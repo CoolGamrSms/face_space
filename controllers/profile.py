@@ -10,9 +10,6 @@ def comment_route():
     cur.execute("INSERT into tbl_comments (text, user_id, post_id) VALUES ('"+request.form['comment']+"', '"+str(session['id'])+"', '"+request.form['id']+"')")
     cur.execute("SELECT * FROM tbl_posts where post_id = '" + request.form['id']+"'")
     currentProfile = cur.fetchone()
-    print("============================")
-    print(currentProfile)
-    print("============================")
     cur.close()
     return redirect("/profile?id="+str(currentProfile['user_id'])) 
 

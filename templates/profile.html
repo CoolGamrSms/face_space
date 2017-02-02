@@ -18,13 +18,13 @@
         <div class="panel-body">
            {{ post.text }} 
            <div style="text-align:right; font-size:10pt;color:#999;">
-            Posted by <a href="#">{{ fname }} {{ lname }}</a> on {{ post.post_date }} 
+            Posted by <a href="/profile?id={{ post.user_id }}">{{ fname }} {{ lname }}</a> on {{ post.post_date }} 
            </div>
         </div>
         <ul class="list-group">
             {% for comment in comments[post.post_id] %}
             <li class="list-group-item" style="background-color:#f1f1f1; padding-left:5em;">
-            <a href="#">{{ comment.user_name }}</a>&nbsp;{{ comment.text }}
+            <a href="/profile?id={{ comment.user_id }}">{{ comment.user_name }}</a>&nbsp;{{ comment.text }}
             <div style="padding-top:6px; text-align:left; font-size:8pt;color:#999;">
             Posted on {{ comment.comment_date }} 
            </div>
