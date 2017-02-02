@@ -9,7 +9,7 @@ def post_route():
     cur = db.cursor()
     cur.execute("INSERT into tbl_posts (text, user_id) VALUES ('"+request.form['post']+"', '"+str(session['id'])+"')")
     cur.close()
-    return "idk"
+    return redirect("/home") 
 
 @home.route('/home/', methods = ['GET'])
 def home_route():
