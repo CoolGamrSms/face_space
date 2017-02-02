@@ -3,7 +3,15 @@ from extensions import *
 
 home = Blueprint('home', __name__, template_folder='templates')
 
-@home.route('/home/')
+@home.route('/make_post', methods=['POST'])
+def post_route():
+    if 'id' not in session: abort(404)
+    cur = db.cursor()
+    cur.execute("INSERT into tbl_posts (text, user_id) VALUES ('"+request.form['post']+"', '"+str(session['id'])+"')")
+    cur.close()
+    return "idk"
+
+@home.route('/home/', methods = ['GET'])
 def home_route():
     options = {}
     cur = db.cursor()
@@ -29,4 +37,4 @@ def home_route():
     options['username'] = user['user_name']
     options['fname'] = user['first_name'].lower().capitalize()
     options['lname'] = user['last_name'].lower().capitalize()
-    return render_template('home.html')
+    return render_template('home.html', **options)

@@ -71,3 +71,39 @@ span.psw {
 h1 a {
 
 }
+
+/* Friends List */
+.friends-list * {margin: 0; padding: 0;}
+
+.friends-list div {
+  margin: 20px;
+}
+
+.friends-list ul {
+  list-style-type: none;
+  width: 500px;
+}
+
+.friends-list h3 {
+  font: bold 20px/1.5 Helvetica, Verdana, sans-serif;
+}
+
+.friends-list li img {
+  float: left;
+  margin: 0 15px 0 0;
+}
+
+.friends-list li p {
+  font: 200 12px/1.5 Georgia, Times New Roman, serif;
+}
+
+.friends-list li {
+  padding: 10px;
+  overflow: auto;
+}
+
+.friends-list li:hover {
+  background: #eee;
+  cursor: pointer;
+}
+/* End Friends List */

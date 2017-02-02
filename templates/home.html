@@ -1,5 +1,67 @@
 {% extends "loggedin_base.html" %}
 {% block title %}Facespace - Home{% endblock %}
 {% block body %}
-hehe
+<div class="container" style="min-height:100vh; margin:10px; padding:10px;">
+  <div class="row">
+    <div class="col-sm-8">
+      <h1>News Feed</h1>
+
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <form action="/make_post" method="POST" style="border-style:none;">
+            <textarea class="form-control" name="post" placeholder="Got something to say?"></textarea>
+            <button type="submit" class="btn">Submit</button>
+          </form>
+        </div>
+      </div>
+
+      {% for post in feedPosts %}
+      <div class="panel panel-default">
+        <div class="panel-body">
+         {{ post.text }} 
+         <div style="text-align:right; font-size:10pt;color:#999;">
+          Posted by <a href="/profile?id={{ post.user_id }}">{{ post.first_name }} {{ post.last_name }}</a> on {{ post.post_date }} 
+        </div>
+      </div>
+      <ul class="list-group">
+        {% for comment in comments[post.post_id] %}
+        <li class="list-group-item" style="background-color:#f1f1f1; padding-left:5em;">
+          <a href="/profile?id={{ comment.user_id }}">{{ comment.user_name }}</a>&nbsp;{{ comment.text }}
+          <div style="padding-top:6px; text-align:left; font-size:8pt;color:#999;">
+            Posted on {{ comment.comment_date }} 
+          </div>
+        </li>
+        {% endfor %}
+        <li class="list-group-item">
+          <form action="/make_comment" method="POST" style="border-style:none;">
+            <textarea class="form-control" name="comment" placeholder="Leave a comment..."></textarea>
+            <input type="hidden" name="id" value="{{post.post_id}}" />
+            <button type="submit" class="btn">Submit</button>
+          </form>
+        </li>
+      </ul>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="col-sm-4" style="border-style:solid; border-width:0px 0px 0px 0px; border-color:#f1f1f1;">
+    <div class="imgcontainer">
+      <h1>Welcome Home, {{ fname }}!</h1>
+    </div>
+
+    <div class="friends-list">
+      <h2>Friends</h2>
+      <ul>
+        {% for friend in friends %}
+        <li onclick="location.href='/profile?id={{ friend.user_id }}';">
+          <img src="{{url_for('static', filename='img/thumbnail.png')}}" >
+          <h3>{{ friend.full_name }}</h3>
+          <p>{{ friend.user_name }}</p>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+</div>
 {% endblock %}
