@@ -58,6 +58,7 @@ def profile_route(id):
     options['posts'] = posts
     options['comments'] = comments
     options['username'] = user['user_name']
+    options['user_id'] = user['user_id']
     options['fname'] = user['first_name'].lower().capitalize()
     options['lname'] = user['last_name'].lower().capitalize()
     return render_template('profile.html', **options)

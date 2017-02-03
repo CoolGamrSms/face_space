@@ -12,13 +12,13 @@
 	    <img src="{{url_for('static', filename='img/img_avatar2.png')}}" alt="Avatar" class="avatar" style="margin-bottom:40px;">
       <h3>Friends: {{ friends }}</h3>
       {% if status == -1 %}
-      <p><a href="friends/add/{{user_id}}">Add as friend</a></p>
+      <p><a href="/friends/add/{{user_id}}">Add as friend</a></p>
       {% elif status == 0 %}
-      <p><a href="friends/delete/{{user_id}}">Cancel friend request</a></p>
+      <p><a href="/friends/delete/{{user_id}}">Cancel friend request</a></p>
       {% elif status == 1 %}
-      <p>Friends since {{ since }} (<a href="friends/delete/{{user_id}}">Unfriend</a>)</p>
+      <p>Friends since {{ since }} (<a href="/friends/delete/{{user_id}}">Unfriend</a>)</p>
       {% elif status == 2 %}
-      <p><a href="friends/accept/{{user_id}}">Accept friend request</a> | <a href="friends/delete/{{user_id}}">Decline friend request</a></p>
+      <p><a href="/friends/accept/{{user_id}}">Accept friend request</a> | <a href="/friends/delete/{{user_id}}">Decline friend request</a></p>
       {% endif %}
 
     </div>

@@ -16,13 +16,13 @@
           <h3><a href="/profile/{{ friend.user_id }}">{{ friend.full_name }}</a></h3>
           <p>{{ friend.user_name }}</p>
           {% if friend.status == -1 %}
-          <p><a href="friends/add/{{friend.user_id}}">Add as friend</a></p>
+          <p><a href="/friends/add/{{friend.user_id}}">Add as friend</a></p>
           {% elif friend.status == 0 %}
-          <p><a href="friends/delete/{{friend.user_id}}">Cancel friend request</a></p>
+          <p><a href="/friends/delete/{{friend.user_id}}">Cancel friend request</a></p>
           {% elif friend.status == 1 %}
-          <p>Friends since {{ friend.ship }} (<a href="friends/delete/{{friend.user_id}}">Unfriend</a>)</p>
+          <p>Friends since {{ friend.ship }} (<a href="/friends/delete/{{friend.user_id}}">Unfriend</a>)</p>
           {% elif friend.status == 2 %}
-          <p><a href="friends/accept/{{friend.user_id}}">Accept friend request</a> | <a href="friends/delete/{{friend.user_id}}">Decline friend request</a></p>
+          <p><a href="/friends/accept/{{friend.user_id}}">Accept friend request</a> | <a href="/friends/delete/{{friend.user_id}}">Decline friend request</a></p>
           {% endif %}
         </li>
         {% endfor %}
