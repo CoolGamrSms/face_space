@@ -9,7 +9,7 @@ def post_route():
     cur = db.cursor()
     cur.execute("INSERT into tbl_posts (text, user_id) VALUES ('"+request.form['post']+"', '"+str(session['id'])+"')")
     cur.close()
-    return redirect("/home") 
+    return redirect("/home")
 
 @home.route('/make_comment_from_home', methods=['POST'])
 def comment_route():
@@ -17,13 +17,14 @@ def comment_route():
     cur = db.cursor()
     cur.execute("INSERT into tbl_comments (text, user_id, post_id) VALUES ('"+request.form['comment']+"', '"+str(session['id'])+"', '"+request.form['id']+"')")
     cur.close()
-    return redirect("/home") 
+    return redirect("/home/#post-"+request.form['id'])
 
 @home.route('/home/', methods = ['GET'])
 def home_route():
+    if 'id' not in session: return redirect('/')
     options = {}
     cur = db.cursor()
-    cur.execute("SELECT * from tbl_users WHERE user_name='"+session['user']+"'")
+    cur.execute("SELECT * from tbl_users WHERE user_id='"+str(session['id'])+"'")
     user = cur.fetchone()
     cur.execute("CALL get_friendsPosts("+str(user['user_id'])+")")
     feedPosts = cur.fetchall()
@@ -31,15 +32,20 @@ def home_route():
     friends = cur.fetchall()
     comments = {}
     for post in feedPosts:
+        post['first_name'] = post['first_name'].lower().capitalize()
+        post['last_name'] = post['last_name'].lower().capitalize()
         cur.execute("CALL get_comments("+str(post['post_id'])+")")
         comments[post['post_id']] = cur.fetchall()
+        for comment in comments[post['post_id']]:
+            comment['first_name'] = comment['first_name'].lower().capitalize()
+            comment['last_name'] = comment['last_name'].lower().capitalize()
     cur.close()
-    print("============================")
-    print(str(user['user_id']))
-    print("============================")
 
-    if user is None: abort(404)
-    options['feedPosts'] = feedPosts 
+    for friend in friends:
+        friend['full_name'] = friend['first_name'].lower().capitalize() + " " + friend['last_name'].lower().capitalize()
+
+
+    options['feedPosts'] = feedPosts
     options['comments'] = comments
     options['friends'] = friends
     options['username'] = user['user_name']

@@ -2,7 +2,7 @@
 {% block title %}Facespace - Home{% endblock %}
 {% block body %}
 {% autoescape false %}
-<div class="container" style="min-height:100vh; margin:10px; padding:10px;">
+<div class="container" style="min-height:100vh;">
   <div class="row">
     <div class="col-sm-8">
       <h1>News Feed</h1>
@@ -19,9 +19,9 @@
       {% for post in feedPosts %}
       <div class="panel panel-default">
         <div class="panel-body">
-         {{ post.text }}
+         <a name="post-{{post.post_id}}"></a>{{ post.text }}
          <div style="font-size:10pt;color:#999; padding-top:15px;">
-          <a href="javascript:void();" onClick="$('#comment-{{ post.post_id }}').toggleClass('hidden')">Comment</a><div style="float:right;">Posted by <a href="/profile?id={{ post.user_id }}">{{ post.first_name }} {{ post.last_name }}</a> on {{ post.post_date }}</div>
+          <a href="javascript:void();" onClick="$('#comment-{{ post.post_id }}').toggleClass('hidden')">Comment</a><div style="float:right;">Posted by <a href="/profile/{{ post.user_id }}">{{ post.first_name }} {{ post.last_name }}</a> on {{ post.post_date }}</div>
         </div>
       </div>
       <ul class="list-group">
@@ -34,7 +34,7 @@
         </li>
         {% for comment in comments[post.post_id] %}
         <li class="list-group-item" style="background-color:#f1f1f1; padding-left:5em;">
-          <a href="/profile?id={{ comment.user_id }}">{{ comment.first_name }} {{ comment.last_name }}</a>&nbsp;{{ comment.text }}
+          <a href="/profile/{{ comment.user_id }}">{{ comment.first_name }} {{ comment.last_name }}</a>&nbsp;{{ comment.text }}
           <div style="padding-top:6px; text-align:left; font-size:8pt;color:#999;">
             Posted on {{ comment.comment_date }}
           </div>
@@ -48,13 +48,21 @@
   <div class="col-sm-4" style="border-style:solid; border-width:0px 0px 0px 0px; border-color:#f1f1f1;">
     <div class="imgcontainer">
       <h1>Welcome Home, {{ fname }}!</h1>
-    </div>
+      <h3 style="text-align:left; margin-bottom:0px; margin-top:35px;">Friends</h3>
+      <form action="/search" method="GET">
+      <div class="input-group">
+        <input type="text" name="q" class="form-control" placeholder="Find More Friends...">
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+        </span>
 
+      </div><!-- /input-group -->
+    </form>
     <div class="friends-list">
-      <h2>Friends</h2>
+
       <ul>
         {% for friend in friends %}
-        <li onclick="location.href='/profile?id={{ friend.user_id }}';">
+        <li onclick="location.href='/profile/{{ friend.user_id }}';">
           <img src="{{url_for('static', filename='img/thumbnail.png')}}" >
           <h3>{{ friend.full_name }}</h3>
           <p>{{ friend.user_name }}</p>

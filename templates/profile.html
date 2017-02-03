@@ -17,9 +17,9 @@
     {% for post in posts %}
     <div class="panel panel-default">
         <div class="panel-body">
-           {{ post.text }}
+           <a name="post-{{post.post_id}}"></a>{{ post.text }}
            <div style="font-size:10pt;color:#999; padding-top:15px;">
-            <a href="javascript:void();" onClick="$('#comment-{{ post.post_id }}').toggleClass('hidden')">Comment</a><div style="float:right;">Posted by <a href="/profile?id={{ post.user_id }}">{{ fname }} {{ lname }}</a> on {{ post.post_date }}</div>
+            <a href="javascript:void();" onClick="$('#comment-{{ post.post_id }}').toggleClass('hidden')">Comment</a><div style="float:right;">Posted by <a href="/profile/{{ post.user_id }}">{{ fname }} {{ lname }}</a> on {{ post.post_date }}</div>
           </div>
         </div>
         <ul class="list-group">
@@ -32,7 +32,7 @@
           </li>
             {% for comment in comments[post.post_id] %}
             <li class="list-group-item" style="background-color:#f1f1f1; padding-left:5em;">
-            <a href="/profile?id={{ comment.user_id }}">{{ comment.first_name }} {{ comment.last_name }}</a>&nbsp;{{ comment.text }}
+            <a href="/profile/{{ comment.user_id }}">{{ comment.first_name }} {{ comment.last_name }}</a>&nbsp;{{ comment.text }}
             <div style="padding-top:6px; text-align:left; font-size:8pt;color:#999;">
             Posted on {{ comment.comment_date }}
            </div>

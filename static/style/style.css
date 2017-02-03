@@ -81,11 +81,13 @@ h1 a {
 
 .friends-list ul {
   list-style-type: none;
-  width: 500px;
+  width: 100%;
 }
 
 .friends-list h3 {
   font: bold 20px/1.5 Helvetica, Verdana, sans-serif;
+  text-align: left;
+  padding-top:18px;
 }
 
 .friends-list li img {
@@ -95,6 +97,7 @@ h1 a {
 
 .friends-list li p {
   font: 200 12px/1.5 Georgia, Times New Roman, serif;
+  text-align: left;
 }
 
 .friends-list li {

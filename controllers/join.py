@@ -29,7 +29,7 @@ def sign_up_route():
             return json.dumps({'html':'<span>Enter the required fields</span>'})
 
         if len(data) is 0:
-            return json.dumps({'message':'User created successfully !'})
+            return redirect('/')
         else:
             return json.dumps({'error':str(data[0])})
 
