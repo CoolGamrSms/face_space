@@ -39,6 +39,9 @@ def home_route():
         for comment in comments[post['post_id']]:
             comment['first_name'] = comment['first_name'].lower().capitalize()
             comment['last_name'] = comment['last_name'].lower().capitalize()
+
+    cur.execute("CALL get_pending("+str(session['id'])+")")
+    options['pending'] = cur.rowcount
     cur.close()
 
     for friend in friends:
@@ -49,6 +52,7 @@ def home_route():
     options['comments'] = comments
     options['friends'] = friends
     options['username'] = user['user_name']
+    options['user_id'] = user['user_id']
     options['fname'] = user['first_name'].lower().capitalize()
     options['lname'] = user['last_name'].lower().capitalize()
     return render_template('home.html', **options)

@@ -47,8 +47,8 @@
 
   <div class="col-sm-4" style="border-style:solid; border-width:0px 0px 0px 0px; border-color:#f1f1f1;">
     <div class="imgcontainer">
-      <h1>Welcome Home, {{ fname }}!</h1>
-      <h3 style="text-align:left; margin-bottom:0px; margin-top:35px;">Friends</h3>
+      <h1>Welcome Home, <a href="/profile/{{user_id}}">{{ fname }}</a>!</h1>
+      <h3 style="text-align:left; margin-bottom:0px; margin-top:35px;">Friends{% if pending > 0 %} (<a href="/friends">{{pending}} pending</a>){% endif %}</h3>
       <form action="/search" method="GET">
       <div class="input-group">
         <input type="text" name="q" class="form-control" placeholder="Find More Friends...">

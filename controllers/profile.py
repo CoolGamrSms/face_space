@@ -20,7 +20,13 @@ def profile_route(id):
     cur = db.cursor()
     cur.execute("SELECT * from tbl_users WHERE user_id='"+id+"'")
     user = cur.fetchone()
+
+
+    if user is None: abort(404)
     cur.execute("CALL get_posts("+id+")")
+
+    id = long(id)
+
     posts = cur.fetchall()
     comments = {}
     for post in posts:
@@ -29,10 +35,26 @@ def profile_route(id):
         for comment in comments[post['post_id']]:
             comment['first_name'] = comment['first_name'].lower().capitalize()
             comment['last_name'] = comment['last_name'].lower().capitalize()
+    cur.execute("CALL get_friends("+str(id)+")")
+    options['friends'] = cur.rowcount
+    cur.execute("SELECT status, friends_since, action_user_id FROM tbl_relationships WHERE user_id='"+str(min(session['id'], id))+"' AND friend_id='"+str(max(session['id'], id))+"'")
+    status = -2
+    since = 0
+    if cur.rowcount == 0:
+        status = -1
+    else:
+        answer = cur.fetchone()
+        if answer['action_user_id'] != session['id'] and answer['status'] == 0:
+            status = 2
+        else:
+            status = answer['status']
+        since = answer['friends_since']
+    if session['id'] == id:
+        status = -2
     cur.close()
 
-
-    if user is None: abort(404)
+    options['since'] = since
+    options['status'] = status
     options['posts'] = posts
     options['comments'] = comments
     options['username'] = user['user_name']
