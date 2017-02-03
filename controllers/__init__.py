@@ -5,3 +5,4 @@ from join import *
 from home import *
 from search import *
 from friends import *
+from password import *
