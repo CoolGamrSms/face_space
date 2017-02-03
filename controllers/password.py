@@ -5,6 +5,7 @@ password = Blueprint('password', __name__, template_folder='templates')
 
 @password.route('/password')
 def password_route():
+    if 'id' not in session: abort(404)
     options = {}
     if 'error' in request.args:
         options['error'] = request.args['error']
@@ -14,23 +15,26 @@ def password_route():
 
 @password.route('/password',methods=['POST'])
 def password_change_route():
+    if 'id' not in session: abort(404)
     cur = db.cursor()
     try:
         # read the posted values from the UI
-        _uname = request.form['new_uname']
         _password = request.form['new_password']
         _confirmPassword = request.form['confirm_new_password']
 
         if _password != _confirmPassword:
             return redirect('password?error=1')
 
-        if _uname and _password and _confirmPassword:
+        if _password and _confirmPassword:
             # Call MySQL
             #_hashed_password = generate_password_hash(_password)
             _hashed_password = hash_password(_password)
             print(_hashed_password)
-            cur.execute("UPDATE tbl_users SET password = '"+_hashed_password+"' WHERE user_name = '"+_uname+"'")
-            return redirect('/')
+            cur.execute("UPDATE tbl_users SET password = '"+_hashed_password+"' WHERE user_id = '"+str(session['id'])+"'")
+            print "==========================="
+            print _password
+            print "==========================="
+            return redirect('/home')
         else:
             return json.dumps({'html':'<span>Enter the required fields</span>'})
 
