@@ -1,6 +1,7 @@
 {% extends "loggedin_base.html" %}
 {% block title %}{{ username }}'s Profile{% endblock %}
 {% block body %}
+{% autoescape false %}
     <div class="container" style="min-height:100vh; margin:0px; padding:0px;">
     <div class="row">
     <div class="col-sm-4" style="border-style:solid; border-width:0px 1px 0px 0px; border-color:#f1f1f1;">
@@ -16,32 +17,33 @@
     {% for post in posts %}
     <div class="panel panel-default">
         <div class="panel-body">
-           {{ post.text }} 
-           <div style="text-align:right; font-size:10pt;color:#999;">
-            Posted by <a href="/profile?id={{ post.user_id }}">{{ fname }} {{ lname }}</a> on {{ post.post_date }} 
-           </div>
+           {{ post.text }}
+           <div style="font-size:10pt;color:#999; padding-top:15px;">
+            <a href="javascript:void();" onClick="$('#comment-{{ post.post_id }}').toggleClass('hidden')">Comment</a><div style="float:right;">Posted by <a href="/profile?id={{ post.user_id }}">{{ fname }} {{ lname }}</a> on {{ post.post_date }}</div>
+          </div>
         </div>
         <ul class="list-group">
+          <li class="list-group-item hidden" id="comment-{{ post.post_id }}">
+          <form action="/make_comment" method="POST" style="border-style:none;">
+          <textarea class="form-control" name="comment" placeholder="Leave a comment..."></textarea>
+          <input type="hidden" name="id" value="{{post.post_id}}" />
+          <button type="submit" class="btn">Submit</button>
+          </form>
+          </li>
             {% for comment in comments[post.post_id] %}
             <li class="list-group-item" style="background-color:#f1f1f1; padding-left:5em;">
-            <a href="/profile?id={{ comment.user_id }}">{{ comment.user_name }}</a>&nbsp;{{ comment.text }}
+            <a href="/profile?id={{ comment.user_id }}">{{ comment.first_name }} {{ comment.last_name }}</a>&nbsp;{{ comment.text }}
             <div style="padding-top:6px; text-align:left; font-size:8pt;color:#999;">
-            Posted on {{ comment.comment_date }} 
+            Posted on {{ comment.comment_date }}
            </div>
 
 </li>
                         {% endfor %}
-        <li class="list-group-item">
-        <form action="/make_comment" method="POST" style="border-style:none;">
-        <textarea class="form-control" name="comment" placeholder="Leave a comment..."></textarea>
-        <input type="hidden" name="id" value="{{post.post_id}}" />
-        <button type="submit" class="btn">Submit</button>
-        </form>
-        </li>
         </ul>
     </div>
     {% endfor %}
     </div>
     </div>
     </div>
+{% endautoescape %}
 {% endblock %}

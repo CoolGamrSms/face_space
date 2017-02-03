@@ -5,6 +5,8 @@ login = Blueprint('login', __name__, template_folder='templates')
 
 @login.route('/login', methods = ['GET'])
 def login_route():
+    if 'id' in session:
+        return redirect("/home")
     return render_template('login.html')
 
 @login.route('/login', methods = ['POST'])
@@ -48,7 +50,7 @@ def login_api_route():
         elif check_password(password, user['password']):
             session['user'] = user['user_name']
             session['id'] = user['user_id']
-            return redirect("/") 
+            return redirect("/home")
 
         else:
             errormsg.append("Password is incorrect for the specified username")
@@ -64,4 +66,4 @@ def logout_api_route():
         tojson.append({'message': 'You do not have the necessary credentials for the resource'})
         return (jsonify(errors=tojson), 401)
     session.clear()
-    return redirect("/") 
+    return redirect("/")
