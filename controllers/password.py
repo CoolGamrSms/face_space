@@ -15,6 +15,9 @@ def password_route():
 
 @password.route('/password',methods=['POST'])
 def password_change_route():
+    print '================='
+    print session
+    print '================='
     if 'id' not in session: abort(404)
     cur = db.cursor()
     try:

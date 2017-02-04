@@ -7,7 +7,11 @@ home = Blueprint('home', __name__, template_folder='templates')
 def post_route():
     if 'id' not in session: abort(404)
     cur = db.cursor()
-    cur.execute("INSERT into tbl_posts (text, user_id) VALUES ('"+request.form['post']+"', '"+str(session['id'])+"')")
+    myquery = "INSERT into tbl_posts (text, user_id) VALUES ('"+request.form['post']+"', '"+str(session['id'])+"')"
+    print '======================================'
+    print myquery
+    print '======================================'
+    cur.execute(myquery)
     cur.close()
     return redirect("/home")
 

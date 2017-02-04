@@ -1,7 +1,6 @@
 {% extends "loggedin_base.html" %}
 {% block title %}Facespace - Home{% endblock %}
 {% block body %}
-{% autoescape false %}
 <div class="container" style="min-height:100vh;">
   <div class="row">
     <div class="col-sm-8">
@@ -18,7 +17,7 @@
 
       {% for post in feedPosts %}
       <div class="panel panel-default">
-        <div class="panel-body">
+        <div class="panel-body" style="overflow:hidden;">
          <a name="post-{{post.post_id}}"></a>{{ post.text }}
          <div style="font-size:10pt;color:#999; padding-top:15px;">
           <a href="javascript:void();" onClick="$('#comment-{{ post.post_id }}').toggleClass('hidden')">Comment</a><div style="float:right;">Posted by <a href="/profile/{{ post.user_id }}">{{ post.first_name }} {{ post.last_name }}</a> on {{ post.post_date }}</div>
@@ -73,5 +72,4 @@
   </div>
 </div>
 </div>
-{% endautoescape %}
 {% endblock %}
