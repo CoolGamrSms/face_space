@@ -23,7 +23,8 @@ def sign_up_route():
             #_hashed_password = generate_password_hash(_password)
             _hashed_password = hash_password(_password)
             print(_hashed_password)
-            cur.execute("INSERT into tbl_users (first_name, last_name, user_name, email, state, password) VALUES ('"+_fname+"', '"+_lname+"', '"+_uname+"', '"+_email+"', '"+_state+"', '"+_hashed_password+"')")
+            cmd = "INSERT into tbl_users (first_name, last_name, user_name, email, state, password) VALUES (%s, %s, %s, %s, %s, %s)"
+            cur.execute(cmd, [_fname, _lname, _uname, _email, _state, _hashed_password])
             data = cur.fetchall()
         else:
             return json.dumps({'html':'<span>Enter the required fields</span>'})

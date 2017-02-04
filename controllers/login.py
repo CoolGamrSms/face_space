@@ -38,7 +38,8 @@ def login_api_route():
 
     else:
         cur = db.cursor()
-        cur.execute("SELECT * FROM tbl_users WHERE user_name='"+username+"'")
+        cmd = "SELECT * FROM tbl_users WHERE user_name = %s"
+        cur.execute(cmd, [username])
         user = cur.fetchone()
         if user == None:
             errormsg.append("Username does not exist")
