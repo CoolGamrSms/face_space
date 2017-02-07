@@ -24,7 +24,7 @@ DELIMITER $$
 --
 -- Procedures
 --
-CREATE DEFINER=`sql9156599`@`%` PROCEDURE `get_comments`(IN `postid` BIGINT(20))
+CREATE DEFINER=`root`@`%` PROCEDURE `get_comments`(IN `postid` BIGINT(20))
     NO SQL
 SELECT cu.user_id, cu.first_name, cu.last_name, c.text, c.comment_date
 FROM	tbl_users cu,
@@ -35,7 +35,7 @@ AND	c.user_id = cu.user_id
 AND	p.post_id = postid
 ORDER BY c.comment_date ASC$$
 
-CREATE DEFINER=`sql9156599`@`%` PROCEDURE `get_friends`(IN `user_id` BIGINT(20))
+CREATE DEFINER=`root`@`%` PROCEDURE `get_friends`(IN `user_id` BIGINT(20))
 BEGIN
 (
 SELECT
@@ -63,7 +63,7 @@ AND tbl_relationships.status = 1
 
 END$$
 
-CREATE DEFINER=`sql9156599`@`%` PROCEDURE `get_friendsPosts`(IN `user_id` BIGINT(20))
+CREATE DEFINER=`root`@`%` PROCEDURE `get_friendsPosts`(IN `user_id` BIGINT(20))
 BEGIN
 (
 SELECT
@@ -117,7 +117,7 @@ LIMIT 30;
 
 END$$
 
-CREATE DEFINER=`sql9156599`@`%` PROCEDURE `get_pending`(IN `uid` BIGINT)
+CREATE DEFINER=`root`@`%` PROCEDURE `get_pending`(IN `uid` BIGINT)
     NO SQL
 SELECT
 tbl_users.user_id,
@@ -149,7 +149,7 @@ AND `status` = 0
 AND `action_user_id` != uid
 AND tbl_users.user_id = tbl_relationships.user_id$$
 
-CREATE DEFINER=`sql9156599`@`%` PROCEDURE `get_posts`(IN `id` BIGINT(20))
+CREATE DEFINER=`root`@`%` PROCEDURE `get_posts`(IN `id` BIGINT(20))
     NO SQL
 SELECT pu.user_id, pu.user_name, p.text, p.post_date, p.post_id
 FROM tbl_users pu,

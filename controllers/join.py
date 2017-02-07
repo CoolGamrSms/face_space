@@ -19,6 +19,9 @@ def sign_up_route():
         _state = request.form['new_state']
         _password = request.form['new_password']
         if _uname and _fname and _lname and _email and _state and _password:
+            print "======================================"
+            print "NEW USER: "+_fname+" "+_lname+" ("+_uname+")"
+            print "======================================"
             # Call MySQL
             #_hashed_password = generate_password_hash(_password)
             _hashed_password = hash_password(_password)

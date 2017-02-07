@@ -7,11 +7,11 @@ home = Blueprint('home', __name__, template_folder='templates')
 def post_route():
     if 'id' not in session: abort(404)
     cur = db.cursor()
-    myquery = "INSERT into tbl_posts (text, user_id) VALUES ('"+request.form['post']+"', '"+str(session['id'])+"')"
+    myquery = "INSERT into tbl_posts (text, user_id) VALUES (%s, '"+str(session['id'])+"')"
+    print '============  POST  =================='
+    print request.form['post'] 
     print '======================================'
-    print myquery
-    print '======================================'
-    cur.execute(myquery)
+    cur.execute(myquery, [request.form['post']])
     cur.close()
     return redirect("/home")
 
@@ -19,7 +19,7 @@ def post_route():
 def comment_route():
     if 'id' not in session: abort(404)
     cur = db.cursor()
-    cur.execute("INSERT into tbl_comments (text, user_id, post_id) VALUES ('"+request.form['comment']+"', '"+str(session['id'])+"', '"+request.form['id']+"')")
+    cur.execute("INSERT into tbl_comments (text, user_id, post_id) VALUES (%s, '"+str(session['id'])+"', %s)", [request.form['comment'], request.form['id']])
     cur.close()
     return redirect("/home/#post-"+request.form['id'])
 
@@ -37,12 +37,16 @@ def home_route():
     comments = {}
     for post in feedPosts:
         post['first_name'] = post['first_name'].lower().capitalize()
+	if post['text'].count('<') > 0:
+	    post['text'] = "{{ CENSORED }}"
         post['last_name'] = post['last_name'].lower().capitalize()
         cur.execute("CALL get_comments("+str(post['post_id'])+")")
         comments[post['post_id']] = cur.fetchall()
         for comment in comments[post['post_id']]:
             comment['first_name'] = comment['first_name'].lower().capitalize()
             comment['last_name'] = comment['last_name'].lower().capitalize()
+	    if comment['text'].count('<') > 0:
+	        comment['text'] = "{{ CENSORED }}"
 
     cur.execute("CALL get_pending("+str(session['id'])+")")
     options['pending'] = cur.rowcount

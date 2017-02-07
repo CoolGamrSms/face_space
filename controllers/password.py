@@ -15,9 +15,6 @@ def password_route():
 
 @password.route('/password',methods=['POST'])
 def password_change_route():
-    print '================='
-    print session
-    print '================='
     if 'id' not in session: abort(404)
     cur = db.cursor()
     try:
@@ -35,7 +32,7 @@ def password_change_route():
             print(_hashed_password)
             cur.execute("UPDATE tbl_users SET password = '"+_hashed_password+"' WHERE user_id = '"+str(session['id'])+"'")
             print "==========================="
-            print _password
+            print "PASSWORD CHANGED FOR USER "+str(session['id']) 
             print "==========================="
             return redirect('/home')
         else:

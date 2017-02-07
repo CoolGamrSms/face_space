@@ -7,10 +7,10 @@ from flask import Flask, session, abort, redirect, render_template, url_for
 
 def connect_to_database():
   options = {
-    'host': 'sql9.freesqldatabase.com',
-    'user': 'sql9156599',
-    'passwd': 'aLMpb7qI48',
-    'db': 'sql9156599',
+    'host': 'localhost',
+    'user': 'root',
+    'passwd': 'bill',
+    'db': 'facespace',
     'port': 3306,
     'cursorclass' : MySQLdb.cursors.DictCursor
   }

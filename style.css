@@ -1,0 +1,112 @@
+/* Full-width inputs */
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+/* Extra style for the cancel button (red) */
+.cancelbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #f44336;
+}
+
+/* Extra style for the cancel button (red) */
+.postbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #008CBA;
+}
+
+/* Center the avatar image inside this container */
+.imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+}
+
+/* Avatar image */
+img.avatar {
+    width: 27%;
+    border-radius: 50%;
+}
+
+/* Add padding to containers */
+.container {
+    padding: 16px;
+}
+
+/* The "Forgot password" text */
+span.psw {
+    float: right;
+    padding-top: 16px;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+    span.psw {
+        display: block;
+        float: none;
+    }
+    .cancelbtn {
+        width: 100%;
+    }
+}
+
+/* Header Link */
+h1 a {
+
+}
+
+/* Friends List */
+.friends-list * {margin: 0; padding: 0;}
+
+.friends-list div {
+  margin: 20px;
+}
+
+.friends-list ul {
+  list-style-type: none;
+  width: 100%;
+}
+
+.friends-list h3 {
+  font: bold 20px/1.5 Helvetica, Verdana, sans-serif;
+  text-align: left;
+  padding-top:18px;
+}
+
+.friends-list li img {
+  float: left;
+  margin: 0 15px 0 0;
+}
+
+.friends-list li p {
+  font: 200 12px/1.5 Georgia, Times New Roman, serif;
+  text-align: left;
+}
+
+.friends-list li {
+  padding: 10px;
+  overflow: auto;
+}
+
+.friends-list li:hover {
+  background: #eee;
+  cursor: pointer;
+}
+/* End Friends List */

@@ -7,7 +7,7 @@ profile = Blueprint('profile', __name__, template_folder='templates')
 def comment_route():
     if 'id' not in session: return redirect('/')
     cur = db.cursor()
-    cur.execute("INSERT into tbl_comments (text, user_id, post_id) VALUES ('"+request.form['comment']+"', '"+str(session['id'])+"', '"+request.form['id']+"')")
+    cur.execute("INSERT into tbl_comments (text, user_id, post_id) VALUES (%s, '"+str(session['id'])+"', %s)", [request.form['comment'], request.form['id']])
     cur.execute("SELECT * FROM tbl_posts where post_id = '" + request.form['id']+"'")
     currentProfile = cur.fetchone()
     cur.close()
